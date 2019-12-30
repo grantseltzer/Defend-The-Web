@@ -1,0 +1,63 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://spider.gd" type="Script" id=1]
+[ext_resource path="res://sprites/spider/standing.png" type="Texture" id=2]
+[ext_resource path="res://sprites/spider/attack1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/spider/attack2.png" type="Texture" id=4]
+[ext_resource path="res://sprites/spider/attack3.png" type="Texture" id=5]
+[ext_resource path="res://sprites/spider/walk1.png" type="Texture" id=6]
+[ext_resource path="res://sprites/spider/walk2.png" type="Texture" id=7]
+[ext_resource path="res://sprites/spider/walk3.png" type="Texture" id=8]
+[ext_resource path="res://sprites/spider/walk4.png" type="Texture" id=9]
+[ext_resource path="res://sprites/spider/walk5.png" type="Texture" id=10]
+[ext_resource path="res://sprites/spider/walk6.png" type="Texture" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": false,
+"name": "standing",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "attack",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "walking",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9, 7 )
+
+[node name="spider" type="KinematicBody2D"]
+position = Vector2( 116, 87 )
+scale = Vector2( 0.8, 0.8 )
+z_index = 5
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 1.5708
+scale = Vector2( 0.4375, 0.4375 )
+frames = SubResource( 1 )
+animation = "walking"
+frame = 5
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 18.75, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+process_mode = 0
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 3.0
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://robot_crawler.gd" type="Script" id=1]
+[ext_resource path="res://sprites/crawler/1.png" type="Texture" id=2]
+[ext_resource path="res://sprites/crawler/4.png" type="Texture" id=3]
+[ext_resource path="res://sprites/crawler/2.png" type="Texture" id=4]
+[ext_resource path="res://sprites/crawler/3.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 15, 13 )
+
+[node name="Crawler" type="KinematicBody2D"]
+position = Vector2( -1, 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "idle"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 1, 0 )
+shape = SubResource( 2 )
